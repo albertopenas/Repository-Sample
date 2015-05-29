@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Repository Pattern App</string>
+    <string name="loading">Loading</string>
+    <string name="error_loading_weather">Error loading weather!</string>
+</resources>
