@@ -11,7 +11,7 @@ public class WeatherTableMapper implements WeatherMapper<WeatherTable>{
     @Override
     public Weather map(WeatherTable weatherTable) {
         Weather weather = new Weather();
-        weather.setId(weatherTable.getId());
+        //weather.setId(weatherTable.getId());
         weather.setRemoteId(weatherTable.getRemoteId());
         weather.setHumidity(weatherTable.getHumidity());
         weather.setLatitude(weatherTable.getLatitude());
@@ -31,7 +31,7 @@ public class WeatherTableMapper implements WeatherMapper<WeatherTable>{
         weatherTable.setLongitude(weather.getLongitude());
         weatherTable.setLatitude(weather.getLatitude());
         weatherTable.setHumidity(weather.getHumidity());
-        weatherTable.setId(weather.getId());
+        //weatherTable.setId(weather.getId());
         weatherTable.setRemoteId(weather.getRemoteId());
         return weatherTable;
     }

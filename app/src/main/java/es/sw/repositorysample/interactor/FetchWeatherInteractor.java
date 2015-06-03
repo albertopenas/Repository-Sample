@@ -9,14 +9,14 @@ import es.sw.repositorysample.executor.Interactor;
 import es.sw.repositorysample.executor.MainThread;
 import es.sw.repositorysample.repository.criteria.FetchCriteria;
 import es.sw.repositorysample.repository.exceptions.ObjectNotFoundInRepositoryException;
-import es.sw.repositorysample.repository.weather.WeatherRepository;
+import es.sw.repositorysample.repository.interfaces.Repository;
 
 /**
  * Created by albertopenasamor on 27/5/15.
  */
 public class FetchWeatherInteractor implements Interactor, FetchWeatherCallback {
 
-    private WeatherRepository weatherRepository;
+    private Repository weatherRepository;
     private long id;
     private FetchCriteria fetchCriteria;
     private Callback callback;
@@ -24,7 +24,7 @@ public class FetchWeatherInteractor implements Interactor, FetchWeatherCallback 
     private MainThread mainThread;
 
     @Inject
-    public FetchWeatherInteractor(WeatherRepository weatherRepository, Executor executor, MainThread mainThread){
+    public FetchWeatherInteractor(Repository weatherRepository, Executor executor, MainThread mainThread) {
         this.weatherRepository = weatherRepository;
         this.executor = executor;
         this.mainThread = mainThread;
@@ -33,7 +33,7 @@ public class FetchWeatherInteractor implements Interactor, FetchWeatherCallback 
     @Override
     public void run() {
         try {
-            Weather weather = weatherRepository.findById(id, fetchCriteria);
+            Weather weather = (Weather) weatherRepository.findById(id, fetchCriteria);
             success(weather);
         } catch (ObjectNotFoundInRepositoryException e) {
             if (BuildConfig.DEBUG) {
@@ -61,8 +61,8 @@ public class FetchWeatherInteractor implements Interactor, FetchWeatherCallback 
         executor.run(this);
     }
 
-    private void success(final Weather weather){
-        if (!isRunning()){
+    private void success(final Weather weather) {
+        if (!isRunning()) {
             return;
         }
 
@@ -74,8 +74,8 @@ public class FetchWeatherInteractor implements Interactor, FetchWeatherCallback 
         });
     }
 
-    private void error(){
-        if (!isRunning()){
+    private void error() {
+        if (!isRunning()) {
             return;
         }
 

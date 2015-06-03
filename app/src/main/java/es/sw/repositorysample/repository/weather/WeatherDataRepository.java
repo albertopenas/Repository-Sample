@@ -12,27 +12,31 @@ import es.sw.repositorysample.repository.exceptions.ObjectNotFoundInCloudReposit
 import es.sw.repositorysample.repository.exceptions.ObjectNotFoundInDatabaseRepositoryException;
 import es.sw.repositorysample.repository.exceptions.ObjectNotFoundInRepositoryException;
 import es.sw.repositorysample.repository.criteria.StoreCriteria;
+import es.sw.repositorysample.repository.interfaces.DataStore;
+import es.sw.repositorysample.repository.interfaces.Repository;
+import es.sw.repositorysample.repository.outdate.WeatherOutdate;
 
 /**
  * Created by albertopenasamor on 27/5/15.
  */
 @Singleton
-public class WeatherDataRepository implements WeatherRepository{
+public class WeatherDataRepository implements Repository<Weather> {
 
     private WeatherDataStoreFactory weatherDataStoreFactory;
+    private WeatherOutdate weatherOutdate;
 
     @Inject
-    public WeatherDataRepository(WeatherDataStoreFactory weatherDataStoreFactory) {
+    public WeatherDataRepository(WeatherDataStoreFactory weatherDataStoreFactory, WeatherOutdate weatherOutdate) {
         this.weatherDataStoreFactory = weatherDataStoreFactory;
+        this.weatherOutdate = weatherOutdate;
     }
-
 
     @Override
     public Weather findById(long id, FetchCriteria fetchCriteria) throws ObjectNotFoundInRepositoryException {
         do {
-            WeatherDataStore weatherDataStore = weatherDataStoreFactory.get(fetchCriteria);
+            DataStore weatherDataStore = weatherDataStoreFactory.get(id, fetchCriteria);
             try {
-                Weather weather = weatherDataStore.find(id);
+                Weather weather = (Weather) weatherDataStore.find(id);
                 if (weather != null) {
                     return weather;
                 }
@@ -51,25 +55,26 @@ public class WeatherDataRepository implements WeatherRepository{
             } catch (NoMoreCriteriaException e) {
                 throw new ObjectNotFoundInRepositoryException();
             }
-        }while (true);
+        } while (true);
     }
 
     @Override
-    public boolean save(Weather weather, StoreCriteria storeCriteria) throws ObjectCouldNotSavedInRepositoryException{
+    public boolean save(Weather weather, StoreCriteria storeCriteria) throws ObjectCouldNotSavedInRepositoryException {
         do {
-            WeatherDataStore weatherDataStore = weatherDataStoreFactory.get(storeCriteria);
-            boolean wasSaved =  weatherDataStore.save(weather);
+            DataStore weatherDataStore = weatherDataStoreFactory.get(storeCriteria);
+            boolean wasSaved = weatherDataStore.save(weather);
 
-            if (!wasSaved){
+            if (!wasSaved) {
                 throw new ObjectCouldNotSavedInRepositoryException();
             }
 
             try {
                 storeCriteria = StoreCriteria.next(storeCriteria);
             } catch (NoMoreCriteriaException e) {
+                weatherOutdate.setLastUpdate(weather.getRemoteId());
                 return wasSaved;
             }
-        }while (true);
+        } while (true);
     }
 
 

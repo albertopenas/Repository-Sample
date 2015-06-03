@@ -5,6 +5,9 @@ import javax.inject.Singleton;
 
 import es.sw.repositorysample.repository.criteria.FetchCriteria;
 import es.sw.repositorysample.repository.criteria.StoreCriteria;
+import es.sw.repositorysample.repository.exceptions.NoMoreCriteriaException;
+import es.sw.repositorysample.repository.interfaces.DataStore;
+import es.sw.repositorysample.repository.outdate.WeatherOutdate;
 
 /**
  * Created by albertopenasamor on 27/5/15.
@@ -15,26 +18,37 @@ public class WeatherDataStoreFactory {
     private CloudWeatherDataStore cloudWeatherDataStore;
     private DatabaseWeatherDataStore databaseWeatherDataStore;
 
+    private WeatherOutdate weatherOutdate;
+
     @Inject
-    public WeatherDataStoreFactory(CloudWeatherDataStore cloudWeatherDataStore, DatabaseWeatherDataStore databaseWeatherDataStore) {
+    public WeatherDataStoreFactory(CloudWeatherDataStore cloudWeatherDataStore, DatabaseWeatherDataStore databaseWeatherDataStore, WeatherOutdate weatherOutdate) {
         this.cloudWeatherDataStore = cloudWeatherDataStore;
         this.databaseWeatherDataStore = databaseWeatherDataStore;
+        this.weatherOutdate = weatherOutdate;
     }
 
-    public WeatherDataStore get(FetchCriteria fetchCriteria) {
-        if (fetchCriteria.name().equals(FetchCriteria.GET.name())){
+    public DataStore get(long id, FetchCriteria fetchCriteria) {
+        if (fetchCriteria.name().equals(FetchCriteria.GET.name())) {
+            if (weatherOutdate.isExpired(id)) {
+                try {
+                    fetchCriteria = FetchCriteria.next(fetchCriteria);
+                } catch (NoMoreCriteriaException e) {
+                    e.printStackTrace();
+                }
+                return cloudWeatherDataStore;
+            }
             return databaseWeatherDataStore;
-        }else if(fetchCriteria.name().equals(FetchCriteria.REFRESH.name())){
+        } else if (fetchCriteria.name().equals(FetchCriteria.REFRESH.name())) {
             return cloudWeatherDataStore;
-        }else{
+        } else {
             throw new IllegalArgumentException();
         }
     }
 
-    public WeatherDataStore get(StoreCriteria storeCriteria) {
-        if (storeCriteria.name().equals(StoreCriteria.SAVE.name())){
+    public DataStore get(StoreCriteria storeCriteria) {
+        if (storeCriteria.name().equals(StoreCriteria.SAVE.name())) {
             return databaseWeatherDataStore;
-        }else{
+        } else {
             throw new IllegalArgumentException();
         }
     }
