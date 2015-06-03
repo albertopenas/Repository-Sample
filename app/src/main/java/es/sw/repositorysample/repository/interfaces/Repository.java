@@ -1,4 +1,4 @@
-package es.sw.repositorysample.repository.weather;
+package es.sw.repositorysample.repository.interfaces;
 
 import es.sw.repositorysample.domain.model.Weather;
 import es.sw.repositorysample.repository.criteria.FetchCriteria;
@@ -9,7 +9,8 @@ import es.sw.repositorysample.repository.exceptions.ObjectNotFoundInRepositoryEx
 /**
  * Created by albertopenasamor on 27/5/15.
  */
-public interface WeatherRepository {
-    Weather findById(long id, FetchCriteria fetchCriteria) throws ObjectNotFoundInRepositoryException;
-    boolean save(Weather weather, StoreCriteria storeCriteria) throws ObjectCouldNotSavedInRepositoryException;
+public interface Repository<T> {
+    T findById(long id, FetchCriteria fetchCriteria) throws ObjectNotFoundInRepositoryException;
+
+    boolean save(T weather, StoreCriteria storeCriteria) throws ObjectCouldNotSavedInRepositoryException;
 }

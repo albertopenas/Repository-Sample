@@ -9,14 +9,14 @@ import es.sw.repositorysample.executor.Interactor;
 import es.sw.repositorysample.executor.MainThread;
 import es.sw.repositorysample.repository.criteria.StoreCriteria;
 import es.sw.repositorysample.repository.exceptions.ObjectCouldNotSavedInRepositoryException;
-import es.sw.repositorysample.repository.weather.WeatherRepository;
+import es.sw.repositorysample.repository.interfaces.Repository;
 
 /**
  * Created by albertopenasamor on 27/5/15.
  */
 public class SaveWeatherInteractor implements Interactor, SaveWeatherCallback {
 
-    private WeatherRepository weatherRepository;
+    private Repository weatherRepository;
     private Weather weather;
     private StoreCriteria storeCriteria;
     private Callback callback;
@@ -24,7 +24,7 @@ public class SaveWeatherInteractor implements Interactor, SaveWeatherCallback {
     private MainThread mainThread;
 
     @Inject
-    public SaveWeatherInteractor(WeatherRepository weatherRepository, Executor executor, MainThread mainThread){
+    public SaveWeatherInteractor(Repository weatherRepository, Executor executor, MainThread mainThread){
         this.weatherRepository = weatherRepository;
         this.executor = executor;
         this.mainThread = mainThread;

@@ -13,10 +13,12 @@ public class WeatherTable extends ActiveRecord {
 
     public static final String REMOTE_ID = "remote_id";
 
+    /*
     @DatabaseField(generatedId = true)
-    private long id;
+    private long id;*/
 
-    @DatabaseField(unique = true, columnName = REMOTE_ID)
+    //@DatabaseField(unique = true, columnName = REMOTE_ID)
+    @DatabaseField(id = true, columnName =  REMOTE_ID)
     private long remoteId;
 
     @DatabaseField
@@ -39,9 +41,11 @@ public class WeatherTable extends ActiveRecord {
 
     public WeatherTable(){}
 
+    /*
     public long getId() {
         return id;
     }
+    */
 
     public long getRemoteId() {
         return remoteId;
@@ -71,9 +75,11 @@ public class WeatherTable extends ActiveRecord {
         return windSpeed;
     }
 
+    /*
     public void setId(long id) {
         this.id = id;
     }
+    */
 
     public void setRemoteId(long remoteId) {
         this.remoteId = remoteId;

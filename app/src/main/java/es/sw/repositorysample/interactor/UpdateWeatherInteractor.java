@@ -9,14 +9,14 @@ import es.sw.repositorysample.executor.Interactor;
 import es.sw.repositorysample.executor.MainThread;
 import es.sw.repositorysample.repository.criteria.FetchCriteria;
 import es.sw.repositorysample.repository.exceptions.ObjectNotFoundInRepositoryException;
-import es.sw.repositorysample.repository.weather.WeatherRepository;
+import es.sw.repositorysample.repository.interfaces.Repository;
 
 /**
  * Created by albertopenasamor on 27/5/15.
  */
 public class UpdateWeatherInteractor implements Interactor, UpdateWeatherCallback {
 
-    private WeatherRepository weatherRepository;
+    private Repository weatherRepository;
     private Weather weather;
     private FetchCriteria fetchCriteria;
     private Callback callback;
@@ -24,7 +24,7 @@ public class UpdateWeatherInteractor implements Interactor, UpdateWeatherCallbac
     private MainThread mainThread;
 
     @Inject
-    public UpdateWeatherInteractor(WeatherRepository weatherRepository, Executor executor, MainThread mainThread){
+    public UpdateWeatherInteractor(Repository weatherRepository, Executor executor, MainThread mainThread) {
         this.weatherRepository = weatherRepository;
         this.executor = executor;
         this.mainThread = mainThread;
@@ -34,7 +34,7 @@ public class UpdateWeatherInteractor implements Interactor, UpdateWeatherCallbac
     public void run() {
         try {
             long remoteId = weather.getRemoteId();
-            Weather newWeather = weatherRepository.findById(remoteId, fetchCriteria);
+            Weather newWeather = (Weather) weatherRepository.findById(remoteId, fetchCriteria);
             newWeather.setId(weather.getId());
             success(newWeather);
         } catch (ObjectNotFoundInRepositoryException e) {
@@ -63,8 +63,8 @@ public class UpdateWeatherInteractor implements Interactor, UpdateWeatherCallbac
         executor.run(this);
     }
 
-    private void success(final Weather weather){
-        if (!isRunning()){
+    private void success(final Weather weather) {
+        if (!isRunning()) {
             return;
         }
 
@@ -76,8 +76,8 @@ public class UpdateWeatherInteractor implements Interactor, UpdateWeatherCallbac
         });
     }
 
-    private void error(){
-        if (!isRunning()){
+    private void error() {
+        if (!isRunning()) {
             return;
         }
 

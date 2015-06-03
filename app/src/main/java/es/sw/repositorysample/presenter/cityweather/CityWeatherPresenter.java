@@ -63,6 +63,9 @@ public class CityWeatherPresenter implements Presenter {
         if (saveWeatherInteractor.isRunning()){
             saveWeatherInteractor.cancel();
         }
+        if (updateWeatherInteractor.isRunning()){
+            updateWeatherInteractor.cancel();
+        }
     }
 
     public void findWeatherForCity(City city){

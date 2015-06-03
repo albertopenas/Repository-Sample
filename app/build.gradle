@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "es.sw.repositorysample"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -66,4 +66,5 @@ dependencies {
 
     compile 'com.squareup.okio:okio:1.4.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'joda-time:joda-time:2.8'
 }

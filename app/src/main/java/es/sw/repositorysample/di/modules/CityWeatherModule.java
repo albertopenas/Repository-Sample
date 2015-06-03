@@ -13,11 +13,12 @@ import es.sw.repositorysample.interactor.UpdateWeatherInteractor;
 import es.sw.repositorysample.net.okhttp.OkHttp;
 import es.sw.repositorysample.net.okhttp.webservice.GetWeatherById;
 import es.sw.repositorysample.presenter.cityweather.CityWeatherPresenter;
+import es.sw.repositorysample.repository.outdate.WeatherOutdate;
 import es.sw.repositorysample.repository.weather.CloudWeatherDataStore;
 import es.sw.repositorysample.repository.weather.DatabaseWeatherDataStore;
+import es.sw.repositorysample.repository.interfaces.Repository;
 import es.sw.repositorysample.repository.weather.WeatherDataRepository;
 import es.sw.repositorysample.repository.weather.WeatherDataStoreFactory;
-import es.sw.repositorysample.repository.weather.WeatherRepository;
 import es.sw.repositorysample.ui.CityWeatherActivity;
 
 /**
@@ -37,48 +38,64 @@ public class CityWeatherModule {
         return this.activity;
     }
 
-    @Provides @PerActivity
-    CityWeatherPresenter provideCityWeatherPresenter(FetchWeatherInteractor fetchWeatherInteractor, SaveWeatherInteractor saveWeatherInteractor, UpdateWeatherInteractor updateWeatherInteractor){
+    @Provides
+    @PerActivity
+    CityWeatherPresenter provideCityWeatherPresenter(FetchWeatherInteractor fetchWeatherInteractor, SaveWeatherInteractor saveWeatherInteractor, UpdateWeatherInteractor updateWeatherInteractor) {
         return new CityWeatherPresenter(activity, fetchWeatherInteractor, saveWeatherInteractor, updateWeatherInteractor);
     }
 
-    @Provides @PerActivity
-    UpdateWeatherInteractor provideUpdateWeatherInteractor(WeatherRepository weatherRepository, Executor executor, MainThread mainThread){
+    @Provides
+    @PerActivity
+    UpdateWeatherInteractor provideUpdateWeatherInteractor(Repository weatherRepository, Executor executor, MainThread mainThread) {
         return new UpdateWeatherInteractor(weatherRepository, executor, mainThread);
     }
 
-    @Provides @PerActivity
-    FetchWeatherInteractor provideFindCityWeatherInteractor(WeatherRepository weatherRepository, Executor executor, MainThread mainThread){
+    @Provides
+    @PerActivity
+    FetchWeatherInteractor provideFindCityWeatherInteractor(Repository weatherRepository, Executor executor, MainThread mainThread) {
         return new FetchWeatherInteractor(weatherRepository, executor, mainThread);
     }
 
-    @Provides @PerActivity
-    SaveWeatherInteractor provideSaveWeatherInteractor(WeatherRepository weatherRepository, Executor executor, MainThread mainThread){
+    @Provides
+    @PerActivity
+    SaveWeatherInteractor provideSaveWeatherInteractor(Repository weatherRepository, Executor executor, MainThread mainThread) {
         return new SaveWeatherInteractor(weatherRepository, executor, mainThread);
     }
 
-    @Provides @PerActivity
-    WeatherRepository provideWeatherRepository(WeatherDataStoreFactory weatherDataStoreFactory){
-        return new WeatherDataRepository(weatherDataStoreFactory);
+    @Provides
+    @PerActivity
+    Repository provideWeatherRepository(WeatherDataStoreFactory weatherDataStoreFactory, WeatherOutdate weatherOutdate) {
+        return new WeatherDataRepository(weatherDataStoreFactory, weatherOutdate);
     }
 
-    @Provides @PerActivity
-    WeatherDataStoreFactory provideWeatherDataStoreFactory(CloudWeatherDataStore cloudWeatherDataStore,DatabaseWeatherDataStore databaseWeatherDataStore ){
-        return new WeatherDataStoreFactory(cloudWeatherDataStore, databaseWeatherDataStore);
+    @Provides
+    @PerActivity
+    WeatherDataStoreFactory provideWeatherDataStoreFactory(CloudWeatherDataStore cloudWeatherDataStore, DatabaseWeatherDataStore databaseWeatherDataStore, WeatherOutdate weatherOutdate) {
+        return new WeatherDataStoreFactory(cloudWeatherDataStore, databaseWeatherDataStore, weatherOutdate);
     }
 
-    @Provides @PerActivity
-    CloudWeatherDataStore provideServerWeatherDataStore(GetWeatherById getWeatherById){
+    @Provides
+    @PerActivity
+    CloudWeatherDataStore provideServerWeatherDataStore(GetWeatherById getWeatherById) {
         return new CloudWeatherDataStore(getWeatherById);
     }
 
-    @Provides @PerActivity
-    DatabaseWeatherDataStore provideDatabaseWeatherDataStore(Context context){
+    @Provides
+    @PerActivity
+    DatabaseWeatherDataStore provideDatabaseWeatherDataStore(Context context) {
         return new DatabaseWeatherDataStore(context);
     }
 
-    @Provides @PerActivity
-    GetWeatherById provideGetWeatherById(OkHttp okHttp){
+    @Provides
+    @PerActivity
+    WeatherOutdate provideWeatherOutdate(Context context) {
+        final int minutesBeforeExpire = 15;
+        return new WeatherOutdate(context, minutesBeforeExpire);
+    }
+
+    @Provides
+    @PerActivity
+    GetWeatherById provideGetWeatherById(OkHttp okHttp) {
         return new GetWeatherById(okHttp);
     }
 
