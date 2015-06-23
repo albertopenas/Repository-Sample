@@ -2,4 +2,6 @@
     <string name="app_name">Repository Pattern App</string>
     <string name="loading">Loading</string>
     <string name="error_loading_weather">Error loading weather!</string>
+    <string name="current_location">Tu posición</string>
+    <string name="finding">Buscando posicion...</string>
 </resources>

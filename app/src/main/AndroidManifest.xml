@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:theme="@style/AppTheme"
-            android:name=".ui.CityListActivity"
+            android:name=".ui.activity.CityListActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
@@ -26,12 +26,12 @@
         <activity
             android:label=""
             android:theme="@style/AppThemeNoActionBar"
-            android:name=".ui.CityWeatherActivity"
+            android:name=".ui.activity.CityWeatherActivity"
             android:screenOrientation="portrait"
-            android:parentActivityName=".ui.CityListActivity">
+            android:parentActivityName=".ui.activity.CityListActivity">
             <meta-data
                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.CityListActivity">
+                android:value=".ui.activity.CityListActivity">
             </meta-data>
         </activity>
     </application>

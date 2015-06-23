@@ -13,7 +13,10 @@ public class DummyCities {
     public static List<City> cityList = new ArrayList<>();
 
     static {
-        City city = new City(3675707, "Madrid");
+        City city = new City(City.CURRENT_POSITION, "Tú localización");
+        cityList.add(city);
+
+        city = new City(3675707, "Madrid");
         cityList.add(city);
 
         city = new City(3648559, "Barcelona");

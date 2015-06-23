@@ -1,4 +1,4 @@
-package es.sw.repositorysample.ui;
+package es.sw.repositorysample.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;

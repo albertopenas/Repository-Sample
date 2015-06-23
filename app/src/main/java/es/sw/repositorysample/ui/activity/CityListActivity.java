@@ -1,4 +1,4 @@
-package es.sw.repositorysample.ui;
+package es.sw.repositorysample.ui.activity;
 
 import android.os.Bundle;
 import android.util.Log;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <fragment
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        class="es.sw.repositorysample.ui.fragment.CurrentLocationWeatherFragment"
+        android:id="@+id/current_location_weather_fragment"
+        android:tag="CurrentLocationWeatherFragment"
+        layout="@layout/fragment_current_location_weather">
+    </fragment>
+</LinearLayout>

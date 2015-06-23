@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    tools:context="es.sw.repositorysample.ui.CityWeatherActivity">
+    tools:context="es.sw.repositorysample.ui.activity.CityWeatherActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

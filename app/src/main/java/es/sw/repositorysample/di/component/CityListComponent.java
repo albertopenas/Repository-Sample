@@ -4,7 +4,7 @@ import dagger.Component;
 import es.sw.repositorysample.di.PerActivity;
 import es.sw.repositorysample.di.modules.CityListActivityModule;
 import es.sw.repositorysample.presenter.citylist.CityListPresenter;
-import es.sw.repositorysample.ui.CityListActivity;
+import es.sw.repositorysample.ui.activity.CityListActivity;
 
 /**
  * Created by albertopenasamor on 27/5/15.

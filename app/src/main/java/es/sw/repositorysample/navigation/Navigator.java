@@ -7,7 +7,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import es.sw.repositorysample.domain.model.City;
-import es.sw.repositorysample.ui.CityWeatherActivity;
+import es.sw.repositorysample.ui.activity.CityWeatherActivity;
+import es.sw.repositorysample.ui.activity.CurrentLocationWeatherActivity;
 
 @Singleton
 public class Navigator {
@@ -18,8 +19,13 @@ public class Navigator {
   }
 
   public void navigateToWeatherCity(Context context, City city) {
-      Intent intent = CityWeatherActivity.newIntent(context, city);
-      context.startActivity(intent);
+      if (city.isCurrentPosition()){
+          Intent intent = CurrentLocationWeatherActivity.newIntent(context);
+          context.startActivity(intent);
+      }else {
+          Intent intent = CityWeatherActivity.newIntent(context, city);
+          context.startActivity(intent);
+      }
   }
 
 

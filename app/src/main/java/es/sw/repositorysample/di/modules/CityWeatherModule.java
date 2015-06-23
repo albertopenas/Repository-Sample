@@ -19,7 +19,7 @@ import es.sw.repositorysample.repository.weather.DatabaseWeatherDataStore;
 import es.sw.repositorysample.repository.interfaces.Repository;
 import es.sw.repositorysample.repository.weather.WeatherDataRepository;
 import es.sw.repositorysample.repository.weather.WeatherDataStoreFactory;
-import es.sw.repositorysample.ui.CityWeatherActivity;
+import es.sw.repositorysample.ui.activity.CityWeatherActivity;
 
 /**
  * Created by albertopenasamor on 27/5/15.
