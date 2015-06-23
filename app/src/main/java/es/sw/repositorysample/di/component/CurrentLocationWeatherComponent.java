@@ -6,6 +6,7 @@ import es.sw.repositorysample.di.modules.CurrentLocationWeatherModule;
 import es.sw.repositorysample.presenter.currentlocation.CurrentLocationWeatherPressenter;
 import es.sw.repositorysample.ui.activity.CurrentLocationWeatherActivity;
 import es.sw.repositorysample.ui.fragment.CurrentLocationWeatherFragment;
+import es.sw.repositorysample.ui.recycler.ForecastRecyclerViewAdapter;
 
 /**
  * Created by albertopenasamor on 27/5/15.
@@ -18,4 +19,5 @@ public interface CurrentLocationWeatherComponent {
     void inject(CurrentLocationWeatherFragment fragment);
 
     CurrentLocationWeatherPressenter provideCurrentLocationWeatherPressenter();
+    ForecastRecyclerViewAdapter provideForecastRecyclerViewAdapter();
 }

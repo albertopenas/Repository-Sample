@@ -1,4 +1,4 @@
-package es.sw.repositorysample.adapter;
+package es.sw.repositorysample.ui.adapter;
 
 import android.content.Context;
 import android.location.Location;

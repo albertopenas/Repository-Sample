@@ -44,8 +44,6 @@ public class CityWeatherActivity extends UIActivity implements CityWeatherView{
     @InjectView(R.id.toolbar_title) TextView toolbarTitleTV;
     @Inject CityWeatherPresenter presenter;
 
-
-
     public static Intent newIntent(Context context, City city){
         Intent intent = new Intent(context, CityWeatherActivity.class);
         intent.putExtra("params", city.getId());

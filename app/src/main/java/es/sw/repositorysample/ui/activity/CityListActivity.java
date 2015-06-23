@@ -13,7 +13,7 @@ import butterknife.InjectView;
 import butterknife.OnItemClick;
 import es.sw.repositorysample.BuildConfig;
 import es.sw.repositorysample.R;
-import es.sw.repositorysample.adapter.CityAdapter;
+import es.sw.repositorysample.ui.adapter.CityAdapter;
 import es.sw.repositorysample.di.component.CityListComponent;
 import es.sw.repositorysample.di.component.DaggerCityListComponent;
 import es.sw.repositorysample.di.modules.CityListActivityModule;

@@ -2,6 +2,12 @@
     <string name="app_name">Repository Pattern App</string>
     <string name="loading">Loading</string>
     <string name="error_loading_weather">Error loading weather!</string>
-    <string name="current_location">Tu posición</string>
-    <string name="finding">Buscando posicion...</string>
+    <string name="current_location">Your location</string>
+    <string name="finding">Finding location...</string>
+    <string name="weather_in">Weather in </string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+
+    <string name="error_fetch_weather">Could not fetch weather data</string>
+    <string name="error_location_unavailable">Could not get current location</string>
 </resources>

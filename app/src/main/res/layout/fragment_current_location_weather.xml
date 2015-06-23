@@ -1,7 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                              android:id="@+id/swipe_refresh_container"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="match_parent">
 
-</LinearLayout>
+    <!-- Container needed to force the footer to hug the bottom of the screen -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:clickable="true">  <!-- Clickable to fix unresponsive SwipeRefreshLayout -->
+
+        <!-- Container enforces relative positioning of header and list of forecasts -->
+        <LinearLayout android:id="@+id/weather_container_view"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical">
+
+            <!-- Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:text="Jai Pirillo de la marimorena lechera"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/location_name_tv"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"/>
+
+                <TextView
+                    android:gravity="right"
+                    android:textSize="40sp"
+                    android:text="22º"
+                    android:textColor="@color/accent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/current_temperature_tv"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"/>
+
+            </LinearLayout>
+
+            <!-- Forecasts -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/forecast_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
