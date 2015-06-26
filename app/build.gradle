@@ -64,18 +64,17 @@ dependencies {
 
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
-    compile 'com.squareup.okio:okio:1.4.0'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'joda-time:joda-time:2.8'
 
     compile 'com.android.support:recyclerview-v7:22.2.0'
 
     compile 'io.reactivex:rxjava:1.0.+'
     compile 'io.reactivex:rxandroid:0.23.+'
-    compile 'com.squareup.retrofit:retrofit:1.8.+'
-    compile 'com.squareup.okio:okio:1.1.+'
-    compile 'com.squareup.okhttp:okhttp:2.1.+'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.1.+'
+
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okio:okio:1.5.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
 
     compile 'com.android.support:design:22.2.0'
 }

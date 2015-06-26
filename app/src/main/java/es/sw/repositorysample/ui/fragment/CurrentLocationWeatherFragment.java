@@ -10,7 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.apache.http.HttpException;
@@ -36,7 +38,7 @@ import retrofit.RetrofitError;
 /**
  * Created by albertopenasamor on 22/6/15.
  */
-public class CurrentLocationWeatherFragment extends BaseFragment implements CurrentLocationWeatherView, ForecastRecyclerViewAdapter.OnItemClickListener {
+public class CurrentLocationWeatherFragment extends BaseFragment implements CurrentLocationWeatherView, ForecastRecyclerViewAdapter.OnItemClickListener, OnClickListener {
 
     private static final String TAG = CurrentLocationWeatherFragment.class.getSimpleName();
 
@@ -47,6 +49,7 @@ public class CurrentLocationWeatherFragment extends BaseFragment implements Curr
     @InjectView(R.id.forecast_recycler) RecyclerView recyclerView;
     @InjectView(R.id.location_name_tv) TextView locationNameTV;
     @InjectView(R.id.current_temperature_tv) TextView temperatureTV;
+    @InjectView(R.id.progressBar) ProgressBar progressBar;
 
     @Override
     public void onAttach(Activity activity) {
@@ -98,7 +101,6 @@ public class CurrentLocationWeatherFragment extends BaseFragment implements Curr
         pressenter.destroy();
     }
 
-    @Override
     public void setLocationName(String name) {
         if (activitySetup != null){
             activitySetup.setActionBarTitle(name);
@@ -107,6 +109,7 @@ public class CurrentLocationWeatherFragment extends BaseFragment implements Curr
 
     @Override
     public void setCurrentLocationWeather(CurrentWeather currentWeather, List<WeatherForecast> weatherForecastList) {
+        setLocationName(currentWeather.getLocationName());
         locationNameTV.setText(currentWeather.getLocationName());
         temperatureTV.setText(TemperatureFormatter.format(currentWeather.getTemperature()));
         adapter.setWeatherForecastList(weatherForecastList);
@@ -115,9 +118,9 @@ public class CurrentLocationWeatherFragment extends BaseFragment implements Curr
     @Override
     public void showError(Throwable error) {
         if (error instanceof TimeoutException) {
-            Snackbar.make(getView(), getResources().getString(R.string.error_location_unavailable), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getView(), getResources().getString(R.string.error_location_unavailable), Snackbar.LENGTH_LONG).setAction(getResources().getString(R.string.snack_ok), this).show();
         } else if (error instanceof RetrofitError || error instanceof HttpException) {
-            Snackbar.make(getView(), getResources().getString(R.string.error_fetch_weather), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getView(), getResources().getString(R.string.error_fetch_weather), Snackbar.LENGTH_LONG).setAction(getResources().getString(R.string.snack_ok), this).show();
         } else {
             Log.e(TAG, error.getMessage());
             error.printStackTrace();
@@ -128,13 +131,20 @@ public class CurrentLocationWeatherFragment extends BaseFragment implements Curr
     @Override
     public void showLoading() {
         swipeRefreshLayout.setEnabled(false);
-        swipeRefreshLayout.setRefreshing(true);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
         swipeRefreshLayout.setEnabled(true);
         swipeRefreshLayout.setRefreshing(false);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void alreadyFetchingWeather() {
+        swipeRefreshLayout.setRefreshing(false);
+        Snackbar.make(getView(), getResources().getString(R.string.already_fetching_weather), Snackbar.LENGTH_SHORT).show();
     }
 
 
@@ -160,4 +170,8 @@ public class CurrentLocationWeatherFragment extends BaseFragment implements Curr
         });
     }
 
+    @Override
+    public void onClick(View view) {
+        getActivity().finish();
+    }
 }

@@ -47,7 +47,6 @@ public class CurrentLocationWeatherModule {
 
 
     @Provides
-    @PerActivity
     FetchForecastForCurrentLocationInteractor provideFetchForecastForCurrentLocationInteractor(LocationService locationService){
         return new FetchForecastForCurrentLocationInteractor(locationService);
     }

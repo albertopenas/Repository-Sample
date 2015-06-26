@@ -22,7 +22,7 @@ public class CurrentLocationWeatherPressenter implements Presenter{
     public CurrentLocationWeatherPressenter(FetchForecastForCurrentLocationInteractor fetchForecastForCurrentLocationInteractor) {
         this.fetchForecastForCurrentLocationInteractor = fetchForecastForCurrentLocationInteractor;
     }
-    
+
     @Override
     public void create() {
         Log.d(TAG, "create");
@@ -51,22 +51,26 @@ public class CurrentLocationWeatherPressenter implements Presenter{
     }
 
     public void fetchWeather(){
-        fetchForecastForCurrentLocationInteractor.execute(new FetchForecastForCurrentLocationCallback.Callback() {
-            @Override
-            public void onNext(final CurrentWeather currentWeather, final List<WeatherForecast> weatherForecastList) {
-                view.setCurrentLocationWeather(currentWeather, weatherForecastList);
-            }
+        if (fetchForecastForCurrentLocationInteractor.isRunning()){
+            view.alreadyFetchingWeather();
+        }else {
+            fetchForecastForCurrentLocationInteractor.execute(new FetchForecastForCurrentLocationCallback.Callback() {
+                @Override
+                public void onNext(final CurrentWeather currentWeather, final List<WeatherForecast> weatherForecastList) {
+                    view.setCurrentLocationWeather(currentWeather, weatherForecastList);
+                }
 
-            @Override
-            public void onCompleted() {
-                view.hideLoading();
-            }
+                @Override
+                public void onCompleted() {
+                    view.hideLoading();
+                }
 
-            @Override
-            public void onError(final Throwable error) {
-                view.hideLoading();
-                view.showError(error);
-            }
-        });
+                @Override
+                public void onError(final Throwable error) {
+                    view.hideLoading();
+                    view.showError(error);
+                }
+            });
+        }
     }
 }

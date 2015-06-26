@@ -29,7 +29,6 @@
                 <TextView
                     android:lines="1"
                     android:ellipsize="end"
-                    android:text="Jai Pirillo de la marimorena lechera"
                     android:layout_height="wrap_content"
                     android:id="@+id/location_name_tv"
                     android:textAppearance="?android:attr/textAppearanceLarge"
@@ -40,7 +39,6 @@
                 <TextView
                     android:gravity="right"
                     android:textSize="40sp"
-                    android:text="22º"
                     android:textColor="@color/accent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -58,6 +56,12 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"/>
         </LinearLayout>
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"/>
 
     </RelativeLayout>
 

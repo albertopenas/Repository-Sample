@@ -48,7 +48,7 @@ public class CurrentLocationWeatherActivity extends UIActivity implements HasCom
     public void setActionBarTitle(String title){
         if (getSupportActionBar() != null){
             ActionBar actionBar = getSupportActionBar();
-            String actionBarTitle = String.format("%s%s", getResources().getString(R.string.weather_in), title);
+            String actionBarTitle = String.format("%s %s", getResources().getString(R.string.weather_in), title);
             actionBar.setTitle(actionBarTitle);
         }
     }

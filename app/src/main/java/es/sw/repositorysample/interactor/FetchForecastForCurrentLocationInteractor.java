@@ -28,6 +28,7 @@ public class FetchForecastForCurrentLocationInteractor implements Interactor, Fe
     private static final String KEY_WEATHER_FORECASTS = "key_weather_forecasts";
     private static final long LOCATION_TIMEOUT_SECONDS = 20;
 
+    private boolean isRunning = false;
     private CompositeSubscription mCompositeSubscription = new CompositeSubscription();
     private Callback callback;
     final LocationService locationService;
@@ -45,6 +46,8 @@ public class FetchForecastForCurrentLocationInteractor implements Interactor, Fe
     @Override
     public void run() {
         // Get our current location.
+        isRunning = true;
+
         final Observable fetchDataObservable = locationService.getLocation()
                 .timeout(LOCATION_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .flatMap(new Func1<Location, Observable<HashMap<String, WeatherForecast>>>() {
@@ -89,11 +92,13 @@ public class FetchForecastForCurrentLocationInteractor implements Interactor, Fe
 
                             @Override
                             public void onCompleted() {
+                                isRunning = false;
                                 callback.onCompleted();
                             }
 
                             @Override
                             public void onError(final Throwable error) {
+                                isRunning = false;
                                 callback.onError(error);
                             }
                         })
@@ -102,7 +107,7 @@ public class FetchForecastForCurrentLocationInteractor implements Interactor, Fe
 
     @Override
     public boolean isRunning() {
-        return mCompositeSubscription != null;
+        return isRunning;
     }
 
     @Override
@@ -110,6 +115,6 @@ public class FetchForecastForCurrentLocationInteractor implements Interactor, Fe
         if (mCompositeSubscription != null && !mCompositeSubscription.isUnsubscribed()){
             mCompositeSubscription.unsubscribe();
         }
-        mCompositeSubscription = null;
+        isRunning = false;
     }
 }
