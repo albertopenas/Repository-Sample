@@ -14,4 +14,8 @@
     <color name="text">#333333</color>
     <color name="text_de_emphasized">#666666</color>
     <color name="text_faint">#999999</color>
+
+    <color name="trasparent_black">#88111111</color>
+    <color name="btn_pressed_mask">#19000000</color>
+    <color name="btn_whitepressed_mask">#44ffffff</color>
 </resources>

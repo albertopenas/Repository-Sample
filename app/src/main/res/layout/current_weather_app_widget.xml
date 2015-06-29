@@ -1,0 +1,125 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/trasparent_black">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:padding="@dimen/widget_margin"
+        android:id="@+id/widget_ll"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/current_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7º"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold"
+            android:layout_marginRight="2dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginBottom="2dp"
+                android:id="@+id/max_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="15º"
+                android:gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/thermometer"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/thermometer_iv"/>
+
+            <TextView
+                android:layout_marginTop="2dp"
+                android:id="@+id/min_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="-2º"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Perillo"
+                android:ellipsize="end"
+                android:lines="1"
+                android:id="@+id/location_tv"/>
+
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Rainy"
+                android:ellipsize="end"
+                android:lines="1"
+                android:id="@+id/forecast_tv"/>
+
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="Lun., 01 de junio 2014"
+                android:ellipsize="end"
+                android:lines="1"
+                android:id="@+id/date_tv"/>
+
+            <TextView
+                android:layout_gravity="right"
+                android:layout_marginTop="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="01/07/5201 44:55"
+                android:ellipsize="end"
+                android:lines="1"
+                android:id="@+id/last_updated_at_tv"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView"/>
+
+    <ImageButton
+        android:alpha="0.3"
+        android:elevation="20dp"
+        android:layout_alignRight="@id/widget_ll"
+        android:src="@android:drawable/ic_popup_sync"
+        android:background="@drawable/btn_transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reload_btn"/>
+</RelativeLayout>
+
