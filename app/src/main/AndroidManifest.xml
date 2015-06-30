@@ -57,7 +57,7 @@
                 android:resource="@xml/current_weather_app_widget_info" />
         </receiver>
 
-        <service android:name=".appwidget.CurrentWeatherAppWidget$UpdateWeatherAppWidgetService"
+        <service android:name=".appwidget.UpdateWeatherAppWidgetService"
             android:exported="false"
             android:enabled="true"/>
     </application>

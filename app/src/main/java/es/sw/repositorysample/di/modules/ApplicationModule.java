@@ -51,7 +51,6 @@ public class ApplicationModule {
         return new NetworkUtil(application);
     }
 
-    //TODO: no usable desde preenters!!!!, no tiene el contexto...(NECESITA CONTEXTO DE ACTIVITY:...)
     @Provides @Singleton
     Navigator provideNavigator() {
         return new Navigator();
