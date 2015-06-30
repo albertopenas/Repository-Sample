@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -104,11 +103,9 @@ public class UpdateWeatherAppWidgetService extends Service {
                     }
                 });
 
-
-        final Handler handler = new Handler();
         mCompositeSubscription.add(locationObservable
                 .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.handlerThread(handler))
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<CurrentWeather>() {
                     @Override
                     public void onCompleted() {
