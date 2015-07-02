@@ -69,7 +69,7 @@ public class FetchWeatherInteractor implements Interactor, FetchWeatherCallback 
         mainThread.post(new Runnable() {
             @Override
             public void run() {
-                callback.foundWeather(weather);
+                callback.foundWeather(weather, fetchCriteria);
             }
         });
     }

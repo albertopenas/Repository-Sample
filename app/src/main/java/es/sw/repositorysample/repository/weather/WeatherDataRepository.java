@@ -51,7 +51,7 @@ public class WeatherDataRepository implements Repository<Weather> {
             }
 
             try {
-                fetchCriteria = FetchCriteria.next(fetchCriteria);
+                fetchCriteria.next();
             } catch (NoMoreCriteriaException e) {
                 throw new ObjectNotFoundInRepositoryException();
             }

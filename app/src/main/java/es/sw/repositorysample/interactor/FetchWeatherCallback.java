@@ -9,7 +9,7 @@ import es.sw.repositorysample.repository.criteria.FetchCriteria;
 public interface FetchWeatherCallback {
 
     interface Callback{
-        void foundWeather(Weather weather);
+        void foundWeather(Weather weather, FetchCriteria criteria);
         void notFoundWeather();
     }
 

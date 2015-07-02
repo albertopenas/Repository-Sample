@@ -43,7 +43,8 @@ public class WeatherOutdate implements Outdate<Long> {
         if (weatherDate.isEmpty()) {
             return false;
         }
-        DateTime previousDateTime = new DateTime(weatherDate);
+        //TODO: se quedó frita alguna vez en debug aquí, revisar si puede haber algun problema con los strings o fue el maldito debug
+        DateTime previousDateTime = new DateTime(weatherDate);//2015-07-02T15:32:53.249+02:00
         DateTime currentDate = DateTime.now();
 
         Period diff = new Period(previousDateTime, currentDate);

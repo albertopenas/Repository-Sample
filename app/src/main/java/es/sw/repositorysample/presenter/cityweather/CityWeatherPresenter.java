@@ -70,11 +70,13 @@ public class CityWeatherPresenter implements Presenter {
 
     public void findWeatherForCity(City city){
         Log.d(TAG, "findWeatherForCity");
-        fetchWeatherInteractor.execute(city.getId(), FetchCriteria.GET, new FetchWeatherCallback.Callback() {
+        fetchWeatherInteractor.execute(city.getId(), new FetchCriteria(FetchCriteria.FetchCriteriaEnum.GET), new FetchWeatherCallback.Callback() {
             @Override
-            public void foundWeather(Weather weather) {
+            public void foundWeather(Weather weather, FetchCriteria criteria) {
                 view.weather(weather);
-                saveWeatherForCity(weather);
+                if (criteria.isNewData()) {
+                    saveWeatherForCity(weather);
+                }
             }
 
             @Override
@@ -86,7 +88,7 @@ public class CityWeatherPresenter implements Presenter {
 
     public void refreshWeatherForCity(Weather weather){
         Log.d(TAG, "findWeatherForCity");
-        updateWeatherInteractor.execute(weather, FetchCriteria.REFRESH, new UpdateWeatherCallback.Callback() {
+        updateWeatherInteractor.execute(weather, new FetchCriteria(FetchCriteria.FetchCriteriaEnum.REFRESH), new UpdateWeatherCallback.Callback() {
             @Override
             public void foundWeather(Weather weather) {
                 view.weather(weather);

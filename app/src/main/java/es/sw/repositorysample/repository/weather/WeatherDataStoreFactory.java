@@ -28,17 +28,17 @@ public class WeatherDataStoreFactory {
     }
 
     public DataStore get(long id, FetchCriteria fetchCriteria) {
-        if (fetchCriteria.name().equals(FetchCriteria.GET.name())) {
+        if (fetchCriteria.getFetchCriteria().name().equals(FetchCriteria.FetchCriteriaEnum.GET.name())) {
             if (weatherOutdate.isExpired(id)) {
                 try {
-                    fetchCriteria = FetchCriteria.next(fetchCriteria);
+                    fetchCriteria.next();
                 } catch (NoMoreCriteriaException e) {
                     e.printStackTrace();
                 }
                 return cloudWeatherDataStore;
             }
             return databaseWeatherDataStore;
-        } else if (fetchCriteria.name().equals(FetchCriteria.REFRESH.name())) {
+        } else if (fetchCriteria.getFetchCriteria().name().equals(FetchCriteria.FetchCriteriaEnum.REFRESH.name())) {
             return cloudWeatherDataStore;
         } else {
             throw new IllegalArgumentException();

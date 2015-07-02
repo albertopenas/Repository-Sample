@@ -4,6 +4,7 @@ import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
+import es.sw.repositorysample.BuildConfig;
 import es.sw.repositorysample.di.PerActivity;
 import es.sw.repositorysample.executor.Executor;
 import es.sw.repositorysample.executor.MainThread;
@@ -89,7 +90,7 @@ public class CityWeatherModule {
     @Provides
     @PerActivity
     WeatherOutdate provideWeatherOutdate(Context context) {
-        final int minutesBeforeExpire = 15;
+        final int minutesBeforeExpire = BuildConfig.DEBUG?1:30;
         return new WeatherOutdate(context, minutesBeforeExpire);
     }
 
