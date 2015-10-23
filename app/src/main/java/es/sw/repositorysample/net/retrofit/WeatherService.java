@@ -39,10 +39,10 @@ public class WeatherService {
     }
 
     private interface OpenWeatherMapWebService {
-        @GET("/weather?units=metric")
+        @GET("/weather?units=metric&appid=9186b8e5715f961fed5d4482516bc296")
         Observable<CurrentWeatherDataEnvelope> fetchCurrentWeather(@Query("lon") double longitude, @Query("lat") double latitude);
 
-        @GET("/forecast/daily?units=metric&cnt=7")
+        @GET("/forecast/daily?units=metric&cnt=7&appid=9186b8e5715f961fed5d4482516bc296")
         Observable<WeatherForecastListDataEnvelope> fetchWeatherForecasts(@Query("lon") double longitude, @Query("lat") double latitude);
     }
 

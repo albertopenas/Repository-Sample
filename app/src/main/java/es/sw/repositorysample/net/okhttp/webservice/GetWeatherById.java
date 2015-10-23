@@ -28,7 +28,7 @@ public class GetWeatherById implements WebserviceResponse<WeatherCloud, Long>{
 
     @Override
     public WeatherCloud start(Long params) throws IOException, JSONException {
-        String url = "http://api.openweathermap.org/data/2.5/weather?id="+params;
+        String url = String.format("http://api.openweathermap.org/data/2.5/weather?id=%s&appid=9186b8e5715f961fed5d4482516bc296", params);
         Request request = new Request.Builder()
                 .url(url)
                 .tag(url)
